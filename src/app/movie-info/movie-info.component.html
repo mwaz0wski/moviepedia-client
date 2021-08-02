@@ -1,0 +1,27 @@
+<button (click)="toHomepage()">Home</button>
+<div *ngIf="movieInfo">
+  Title: {{ movieInfo.title }}
+  <div *ngIf="movieInfo.genres">
+    Genre/s:
+    <ng-container *ngFor="let genre of movieInfo.genres; last as isLast">
+      {{ genre.name }}<ng-container *ngIf="!isLast">,&nbsp;</ng-container>
+    </ng-container>
+  </div>
+  <div *ngIf="movieInfo.homepage">
+    Homepage: <a [href]="movieInfo.homepage">{{ movieInfo.homepage }}</a>
+  </div>
+  <div *ngIf="movieInfo.original_language">
+    Original language: {{ movieInfo.original_language }}
+  </div>
+  <div *ngIf="movieInfo.genres">
+    Production company/ies:
+    <ng-container
+      *ngFor="let company of movieInfo.production_companies; last as isLast"
+    >
+      {{ company.name }}<ng-container *ngIf="!isLast">,&nbsp;</ng-container>
+    </ng-container>
+  </div>
+  <div *ngIf="movieInfo.release_date">
+    Release date: {{ movieInfo.release_date | date: "shortDate" }}
+  </div>
+</div>

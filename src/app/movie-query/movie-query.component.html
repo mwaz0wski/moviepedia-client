@@ -1,0 +1,47 @@
+<b>Introduce the title of a movie (or part of it): </b>
+<br />
+<input placeholder="Movie title" name="title" (input)="doFilter($event)" />
+<div *ngIf="moviesResponse">
+  <p><b>Page: </b>{{ moviesResponse.page }}</p>
+  <p><b>Found movies: </b>{{ moviesResponse.total_results }}</p>
+  <h1>
+    <button (click)="moveToPage('first')">First page</button>
+    <button (click)="moveToPage('previous')">Previous page</button>
+    <button (click)="moveToPage('next')">Next page</button>
+    <button (click)="moveToPage('last')">Last page</button>
+    <select (change)="onSelect($event)">
+      <option *ngFor="let pageNumber of queryPages">
+        {{ pageNumber }}
+      </option>
+    </select>
+  </h1>
+  <div *ngFor="let entry of entryList">
+    <div *ngIf="entry.imageUrl; else imageNotAvailable">
+      <a [routerLink]="['/movie-info', entry.id]">
+        <img
+          [src]="entry.imageUrl"
+          alt="{{entry.title}}"
+        />
+      </a>
+    </div>
+    <ng-template #imageNotAvailable>
+      <a [routerLink]="['/movie-info', entry.id]"
+        ><img alt="{{entry.title}}" [src]="'assets/images/image-not-available.png'" width="300"
+      /></a>
+    </ng-template>
+    <div>
+      {{ entry.title }}
+    </div>
+  </div>
+  <h1>
+    <button (click)="moveToPage('first')">First page</button>
+    <button (click)="moveToPage('previous')">Previous page</button>
+    <button (click)="moveToPage('next')">Next page</button>
+    <button (click)="moveToPage('last')">Last page</button>
+    <select (change)="onSelect($event)">
+      <option *ngFor="let pageNumber of queryPages">
+        {{ pageNumber }}
+      </option>
+    </select>
+  </h1>
+</div>
